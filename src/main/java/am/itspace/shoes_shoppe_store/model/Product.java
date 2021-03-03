@@ -51,4 +51,7 @@ public class Product {
     @ManyToMany(mappedBy = "products",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Card> card;
+    @ManyToMany(mappedBy = "products",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Order> orders;
 }

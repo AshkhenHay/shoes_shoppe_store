@@ -4,7 +4,7 @@ package am.itspace.shoes_shoppe_store.endpoint;
 import am.itspace.shoes_shoppe_store.model.Product;
 import am.itspace.shoes_shoppe_store.model.enums.Category;
 import am.itspace.shoes_shoppe_store.model.enums.Type;
-import am.itspace.shoes_shoppe_store.service.ProductService;
+import am.itspace.shoes_shoppe_store.service.serviceImpl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
@@ -14,81 +14,82 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/product")
 public class ProductEndpoint {
 
 
-    private final ProductService productService;
+    private final ProductServiceImpl productServiceImpl;
 
 
-    @GetMapping("/product")
+    @GetMapping("/")
     public List<Product> getProduct() {
-        return productService.getProducts();
+        return productServiceImpl.getProducts();
     }
 
-    @PostMapping("/product")
+    @PostMapping("/")
     public void createdProduct(@RequestBody Product product) {
         if (product.getId() > 0) {
             throw new RuntimeException("Id must be 0");
         }
-        productService.saveProduct(product);
+        productServiceImpl.saveProduct(product);
     }
 
-    @GetMapping("/product/search/{keyword}")
+    @GetMapping("/search/{keyword}")
     public List<Product> search(@PathVariable String keyword) {
         if (keyword != null) {
-            return productService.search(keyword);
+            return productServiceImpl.search(keyword);
 
         }
-        return productService.getProducts();
+        return productServiceImpl.getProducts();
     }
 
-    @GetMapping("/product/filterByCategory/{category}")
+    @GetMapping("/filterByCategory/{category}")
     public List<Product> filterByCategory(@PathVariable Category category) {
         if (category != null) {
 
-            return productService.findByCategory(category);
+            return productServiceImpl.findByCategory(category);
 
         }
-        return productService.getProducts();
+        return productServiceImpl.getProducts();
     }
 
-    @GetMapping("/product/filterByType/{type}")
+    @GetMapping("/filterByType/{type}")
     public List<Product> filterByType(@PathVariable Type type) {
         if (type != null) {
 
-            return productService.findByType(type);
+            return productServiceImpl.findByType(type);
 
         }
-        return productService.getProducts();
+        return productServiceImpl.getProducts();
     }
 
-    @GetMapping("/product/filterByColor/{color}")
+    @GetMapping("/filterByColor/{color}")
     public List<Product> filterByColor(@PathVariable String color) {
         if (color != null) {
 
-            return productService.findByColor(color);
+            return productServiceImpl.findByColor(color);
 
         }
-        return productService.getProducts();
+        return productServiceImpl.getProducts();
     }
- @GetMapping("/product/filterByColorAndType/{color}/{type}")
+ @GetMapping("/filterByColorAndType/{color}/{type}")
     public List<Product> filterByColorAndType(@PathVariable String color, @PathVariable String type) {
         if (color != null && type!=null) {
 
-            return productService.findByColorAndType(color,type);
+            return productServiceImpl.findByColorAndType(color,type);
 
         }
-        return productService.getProducts();
+        return productServiceImpl.getProducts();
     }
- @GetMapping("/product/filterByPrice/{min}/{max}")
+ @GetMapping("/filterByPrice/{min}/{max}")
     public List<Product> filterByColorAndType(@PathVariable int min, @PathVariable int max) {
 
-        return productService.findByPrice(min, max);
+        return productServiceImpl.findByPrice(min, max);
 
     }
 
-    @GetMapping("/product/top/{category}")
+    @GetMapping("/top/{category}")
     public List<Product> topCategory(@PathVariable Category category) {
-        return productService.findTopByCategory(category);
+        return productServiceImpl.findTopByCategory(category);
     }
 }
