@@ -2,9 +2,11 @@ package am.itspace.shoes_shoppe_store.service.serviceImpl;
 
 
 import am.itspace.shoes_shoppe_store.model.Product;
+import am.itspace.shoes_shoppe_store.model.Size;
 import am.itspace.shoes_shoppe_store.model.enums.Category;
 import am.itspace.shoes_shoppe_store.model.enums.Type;
 import am.itspace.shoes_shoppe_store.repository.ProductRepository;
+import am.itspace.shoes_shoppe_store.repository.SizeRepository;
 import am.itspace.shoes_shoppe_store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
+ @Autowired
+    private SizeRepository sizeRepository;
 
     public void saveProduct(Product product){
         productRepository.save(product);
@@ -53,5 +57,18 @@ public class ProductServiceImpl implements ProductService {
     }
     public Product findById(int id){
         return productRepository.findById(id).get();
+    }
+
+    @Override
+    public Product updateSize(int sizeId, int productId) {
+        Product product = productRepository.getOne(productId);
+        Size size =sizeRepository.getOne(sizeId);
+        List<Size> sizes = product.getSizes();
+
+        for (int i = 0; i < size.getCount(); i++) {
+            sizes.add(sizeRepository.getOne(size.getId()));
+        }
+        product.setSizes(sizes);
+        return productRepository.save(product);
     }
 }

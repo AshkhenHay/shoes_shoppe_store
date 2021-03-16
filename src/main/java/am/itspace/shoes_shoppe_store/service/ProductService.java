@@ -28,4 +28,5 @@ public interface ProductService {
     List<Product> findByPrice(int min, int max);
 
     Product findById(int id);
+    Product updateSize(int sizeId, int productId);
 }

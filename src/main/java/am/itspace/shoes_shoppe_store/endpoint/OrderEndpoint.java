@@ -21,6 +21,7 @@ public class OrderEndpoint {
     @PostMapping("/{product_id}/{count}")
     public Order saveOrder(@PathVariable("product_id")int productId, @PathVariable("count")int count, @AuthenticationPrincipal CurrentUser user) {
          return orderService.updateOrder(productId,count,user.getUser());
+
     }
 
 

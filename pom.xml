@@ -22,6 +22,12 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -84,6 +90,15 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/online_shoes_shoppe_stores?verifyservercertificate=false&amp;useSSl=false&amp;useUnicode=yes&amp;characterEncoding=utf8&amp;characterSetResults=utf8&amp;serverTimezone=UTC</url>
+                    <user>root</user>
+                    <password>root</password>
                 </configuration>
             </plugin>
         </plugins>

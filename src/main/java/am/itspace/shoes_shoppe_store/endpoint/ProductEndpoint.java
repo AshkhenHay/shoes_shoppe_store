@@ -34,6 +34,12 @@ public class ProductEndpoint {
         productServiceImpl.saveProduct(product);
     }
 
+    @PostMapping("/{product_id}/{size_id}")
+    public Product updateSize( @PathVariable("product_id") int productId, @PathVariable("size_id") int sizeId) {
+       return productServiceImpl.updateSize(sizeId,productId);
+    }
+
+
     @GetMapping("/search/{keyword}")
     public List<Product> search(@PathVariable String keyword) {
         if (keyword != null) {

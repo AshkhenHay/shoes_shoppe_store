@@ -46,8 +46,11 @@ public class Product {
     private int discount;
     private Date date;
 
-    @OneToMany(mappedBy = "product")
-    private List<Size> size;
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinTable(name = "size_product",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id", referencedColumnName = "id"))
+    private List<Size> sizes;
     @ManyToMany(mappedBy = "products",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Card> card;
